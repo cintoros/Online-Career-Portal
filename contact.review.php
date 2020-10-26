@@ -26,8 +26,10 @@
 	<div id="body_struct" style="margin-top: 1.5%"><br />
 <?php
 	$id = $_SESSION['SEEK_ID'];
-	$query = "SELECT * FROM seeker_details WHERE id='$id'";
-	$query_run = mysql_query($query);
+    $stmt = mysqli_prepare("SELECT * FROM seeker_details WHERE id=?");
+    $stmt->bind_param("s", $id);
+    $stmt->execute();
+    $query_run = $stmt->get_result();
 		
 	while($query_result=mysql_fetch_array($query_run))
 	{
